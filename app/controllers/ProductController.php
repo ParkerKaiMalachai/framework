@@ -6,24 +6,16 @@ namespace controllers;
 
 use src\Classes\Controller;
 
-class ProductController extends Controller
+final class ProductController extends Controller
 {
-    public function index(string $path): void
+    public function index(): void
     {
-        $modelPath = "models\\" . $path . "Model";
-        $model = new $modelPath();
-        $item = $model->getAll();
-        $data = json_decode($item, true);
-        $lowerCasePath = strtolower($path);
-        require 'views/pages/' . $lowerCasePath . '.php';
+        require $this->viewFile;
     }
 
-    public function show(string $id, string $path): void
+    public function show(): void
     {
-        $modelPath = "models\\" . $path . "Model";
-        $model = new $modelPath();
-        $item = $model->getItemByID($id);
         header('Content-Type: application/json');
-        echo $item;
+        echo $this->data;
     }
 }

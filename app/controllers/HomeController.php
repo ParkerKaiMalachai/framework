@@ -6,11 +6,10 @@ namespace controllers;
 
 use src\Classes\Controller;
 
-class HomeController extends Controller
+final class HomeController extends Controller
 {
-    public function index(string $path): void
+    public function index(): void
     {
-        $lowerCasePath = strtolower($path);
-        require 'views/pages/' . $lowerCasePath . '.php';
+        require $this->viewFile;
     }
 }

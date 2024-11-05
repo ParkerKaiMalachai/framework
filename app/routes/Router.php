@@ -14,62 +14,51 @@ final class Router
 
     public bool $match = false;
 
-    public function __construct()
+    public function __construct(array $routes, string $uri)
     {
-        $this->routes = [
-            '/' => ['controller' => 'Home', 'action' => 'index'],
-            '/about' => ['controller' => 'About', 'action' => 'index'],
-            '/contact' => ['controller' => 'Contact', 'action' => 'index'],
-            '/product' => ['controller' => 'Product', 'action' => 'index'],
-            '/product/(?P\d+)' => ['controller' => 'Product', 'action' => 'show', 'params' => ['id' => ':id']],
-        ];
+        $this->routes = $routes;
 
-        $this->uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $this->uri = $uri;
+
     }
 
     public function route(): void
     {
-
         foreach ($this->routes as $url => $controller) {
             if (!!$this->match) {
-
                 break;
-
             }
             if (preg_match("/(?P<id>\d+)/", $this->uri, $matches) && preg_match("/[\d+]/", $url)) {
-
                 $id = $matches[0];
-
-                $nameController = "controllers\\" . $controller['controller'] . "Controller";
-
-                $controllerInstance = new $nameController;
-
-                $methodName = $controller['action'];
-
-                $controllerInstance->$methodName($id, $controller['controller']);
-
-                $this->match = true;
-
+                $nameModel = "models\\" . $controller['controller'] . "Model";
+                $modelInstance = new $nameModel;
+                $allItems = $modelInstance->data;
+                if (isset($allItems[$id])) {
+                    $data = $modelInstance->getItemByID($id);
+                    $nameController = "controllers\\" . $controller['controller'] . "Controller";
+                    $controllerInstance = new $nameController($controller['controller'], $data);
+                    $methodName = $controller['action'];
+                    $controllerInstance->$methodName();
+                    $this->match = true;
+                }
             } else if ($url === $this->uri) {
-
                 $nameController = "controllers\\" . $controller['controller'] . "Controller";
-
-                $controllerInstance = new $nameController;
-
+                $nameModel = "models\\" . $controller['controller'] . "Model";
+                if (class_exists($nameModel)) {
+                    $modelInstance = new $nameModel;
+                    $data = $modelInstance->getAll();
+                } else {
+                    $data = json_encode([]);
+                }
+                $controllerInstance = new $nameController($controller['controller'], $data);
                 $methodName = $controller['action'];
-
-                $controllerInstance->$methodName($controller['controller']);
-
+                $controllerInstance->$methodName();
                 $this->match = true;
-
             }
         }
-        ;
 
         if (!$this->match) {
-
             $this->errorHandler("Not found", 404);
-            
         }
 
     }

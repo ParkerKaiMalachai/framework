@@ -15,11 +15,4 @@ abstract class Model {
 
     abstract function getItemByID(string $id);
 
-    public function errorHandler(string $message, int $code): never
-    {
-        http_response_code($code);
-        
-        throw new Exception($message, $code);
-    }
-
 }

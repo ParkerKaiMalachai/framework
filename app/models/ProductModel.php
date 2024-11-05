@@ -8,9 +8,9 @@ use src\Classes\Model;
 
 class ProductModel extends Model
 {
-    private array $data;
+    public array $data;
 
-    private string $id;
+    public string $id;
 
     public function __construct()
     {
@@ -35,10 +35,7 @@ class ProductModel extends Model
 
     public function getItemByID(string $id): bool|string
     {
-        if (isset($this->data[$id])) {
-            return json_encode($this->data[$id], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        } else {
-            $this->errorHandler("Not found", 404);
-        }
+        return json_encode($this->data[$id], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
+
 }
