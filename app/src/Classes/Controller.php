@@ -22,7 +22,10 @@ abstract class Controller
 
         $this->viewFile = 'views/pages/' . $lowerCasePath . '.php';
 
-        if ((count(json_decode($this->data, true)) < 1) | !preg_match('/(?=.+\d)/', $path)) {
+        if (
+            (count(json_decode($this->data, true)) < 1)
+            | !preg_match('/(?=.+\d)/', $path)
+        ) {
             $this->data = json_decode($this->data, true);
         }
 

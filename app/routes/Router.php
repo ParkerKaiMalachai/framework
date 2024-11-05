@@ -28,11 +28,15 @@ final class Router
             if (!!$this->match) {
                 break;
             }
-            if (preg_match("/(?P<id>\d+)/", $this->uri, $matches) && preg_match("/[\d+]/", $url)) {
+            if (
+                preg_match("/(?P<id>\d+)/", $this->uri, $matches)
+                && preg_match("/[\d+]/", $url)
+            ) {
                 $id = $matches[0];
                 $nameModel = "models\\" . $controller['controller'] . "Model";
                 $modelInstance = new $nameModel;
                 $allItems = $modelInstance->data;
+
                 if (isset($allItems[$id])) {
                     $data = $modelInstance->getItemByID($id);
                     $nameController = "controllers\\" . $controller['controller'] . "Controller";
@@ -41,7 +45,7 @@ final class Router
                     $controllerInstance->$methodName();
                     $this->match = true;
                 }
-            } else if ($url === $this->uri) {
+            } elseif ($url === $this->uri) {
                 $nameController = "controllers\\" . $controller['controller'] . "Controller";
                 $nameModel = "models\\" . $controller['controller'] . "Model";
                 if (class_exists($nameModel)) {
