@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace controllers;
+namespace app\controllers;
 
-use src\Classes\Controller;
+use app\src\classes\abstractions\AbstractController;
 
-final class HomeController extends Controller
+final class HomeController extends AbstractController
 {
     public function index(): void
     {
-        require $this->viewFile;
+        $this->response->send($this->view);
     }
 }

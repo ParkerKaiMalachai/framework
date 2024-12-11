@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-namespace models;
+namespace app\models;
 
-use src\Classes\Model;
+use app\src\classes\exceptions\ParamNotFoundException;
+use app\src\interfaces\ModelInterface;
 
-class ProductModel extends Model
+class ProductModel implements ModelInterface
 {
-    public array $data;
+    private array $data;
 
-    public string $id;
-
-    public function __construct()
+    public function __construct(private array $params)
     {
         $this->data = [
             "1" => [
@@ -28,14 +27,13 @@ class ProductModel extends Model
         ];
     }
 
-    public function getAll(): bool|string
+    public function getItemByID(string $id): mixed
     {
-        return json_encode($this->data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-    }
+        if (!isset($this->data[$id])) {
 
-    public function getItemByID(string $id): bool|string
-    {
-        return json_encode($this->data[$id], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-    }
+            throw new ParamNotFoundException("Param $id not found");
+        }
 
+        return $this->data[$id];
+    }
 }

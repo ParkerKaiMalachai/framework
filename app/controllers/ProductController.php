@@ -2,20 +2,21 @@
 
 declare(strict_types=1);
 
-namespace controllers;
+namespace app\controllers;
 
-use src\Classes\Controller;
+use app\src\classes\abstractions\AbstractController;
 
-final class ProductController extends Controller
+final class ProductController extends AbstractController
 {
     public function index(): void
     {
-        require $this->viewFile;
+        $this->response->send($this->view);
     }
 
     public function show(): void
     {
-        header('Content-Type: application/json');
-        echo $this->data;
+        $id = $this->request->getModel($this->logicData);
+
+        $this->response->sendJSON($id);
     }
 }

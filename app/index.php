@@ -2,24 +2,44 @@
 
 declare(strict_types=1);
 
-require 'autoload.php';
+require 'vendor/autoload.php';
 
-use routes\Router;
+use app\routes\Router;
+use app\src\classes\exceptions\FileNotFoundException;
+use app\src\classes\exceptions\NotFoundRouterException;
+use app\src\classes\exceptions\ParamNotFoundException;
+use app\src\classes\Response;
+use app\src\classes\Request;
 
-$routesArray = [
+const FACTORY_NAMESPACE = "app\\src\\classes\\factories\\";
+
+$response = new Response();
+
+$request = new Request();
+
+$routes = [
     '/' => ['controller' => 'Home', 'action' => 'index'],
     '/about' => ['controller' => 'About', 'action' => 'index'],
     '/contact' => ['controller' => 'Contact', 'action' => 'index'],
-    '/product' => ['controller' => 'Product', 'action' => 'index'],
-    '/product/(?P\d+)' => ['controller' => 'Product', 'action' => 'show', 'params' => ['id' => ':id']],
+    '/product\/(?P<id>\d+)/' => ['controller' => 'Product', 'action' => 'show', 'params' => ['id' => ':id']]
 ];
 
-$uriPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-$router = new Router($routesArray, $uriPath);
+$router = new Router($routes, $uri, $response, $request);
 
 try {
     $router->route();
+} catch (NotFoundRouterException $e) {
+
+    echo $e->getMessage();
+} catch (FileNotFoundException $e) {
+
+    echo $e->getMessage();
+} catch (ParamNotFoundException $e) {
+
+    echo $e->getMessage();
 } catch (Exception $e) {
+
     echo $e->getMessage();
 }
