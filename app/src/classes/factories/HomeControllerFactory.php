@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace app\src\classes\factories;
 
 use app\controllers\HomeController;
-use app\src\interfaces\ControllerFactoryInterface;
+use app\src\interfaces\factories\ControllerFactoryInterface;
 use app\src\interfaces\RequestInterface;
 use app\src\interfaces\ResponseInterface;
 

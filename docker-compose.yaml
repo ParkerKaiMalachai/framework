@@ -7,6 +7,7 @@ services:
       - framework-network
     depends_on:
       - redis
+      - db
   nginx:
     image: nginx:latest
     ports:
@@ -20,8 +21,10 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mysqldb
+      MYSQL_DATABASE: framework_db
+      MYSQL_USER: framework_user
+      MYSQL_PASSWORD: framework_PASSWORD1
+      MYSQL_ROOT_PASSWORD: root_password
     networks:
       - framework-network
   redis:
