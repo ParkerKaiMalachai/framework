@@ -11,7 +11,7 @@ class ProductModel implements ModelInterface
 {
     private array $data;
 
-    public function __construct(private array $params)
+    public function __construct()
     {
         $this->data = [
             "1" => [

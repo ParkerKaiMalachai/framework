@@ -21,5 +21,5 @@ abstract class AbstractController
         $this->view = $toLowerPath;
     }
 
-    abstract public function index();
+    abstract public function index(): void;
 }

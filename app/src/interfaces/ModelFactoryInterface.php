@@ -8,5 +8,5 @@ use app\src\interfaces\ModelInterface;
 
 interface ModelFactoryInterface
 {
-    public static function createModel(array $logicData): ModelInterface;
+    public static function createModel(): ModelInterface;
 }
