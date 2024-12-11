@@ -6,7 +6,7 @@ namespace app\src\interfaces;
 
 interface ResponseInterface
 {
-    public function send(string $file);
+    public function send(string $file): void;
 
-    public function sendJSON(array $data);
+    public function sendJSON(array $data): void;
 }

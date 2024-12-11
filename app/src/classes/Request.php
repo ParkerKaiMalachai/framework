@@ -12,7 +12,7 @@ class Request implements RequestInterface
     {
         $factoryName = FACTORY_NAMESPACE . $logicData['pathName'] . "ModelFactory";
 
-        $model = $factoryName::createModel($logicData);
+        $model = $factoryName::createModel();
 
         $id = $model->getItemByID($logicData['params']['id']);
 

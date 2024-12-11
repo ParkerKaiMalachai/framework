@@ -6,5 +6,5 @@ namespace app\src\interfaces;
 
 interface ModelInterface
 {
-    public function getItemByID(string $id);
+    public function getItemByID(string $id): mixed;
 }

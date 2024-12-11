@@ -6,5 +6,5 @@ namespace app\src\interfaces;
 
 interface RouterInterface
 {
-    public function route();
+    public function route(): void;
 }
