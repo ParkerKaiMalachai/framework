@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace app\models;
 
 use app\src\classes\exceptions\ParamNotFoundException;
-use app\src\interfaces\ModelInterface;
+use app\src\interfaces\models\ModelInterface;
 
 class ProductModel implements ModelInterface
 {

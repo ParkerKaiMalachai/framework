@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace app\src\classes\factories;
 
 use app\models\ProductModel;
-use app\src\interfaces\ModelFactoryInterface;
-use app\src\interfaces\ModelInterface;
+use app\src\interfaces\factories\ModelFactoryInterface;
+use app\src\interfaces\models\ModelInterface;
 
 final class ProductModelFactory implements ModelFactoryInterface
 {

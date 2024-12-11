@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace app\src\interfaces;
+namespace app\src\interfaces\factories;
 
-use app\src\interfaces\ModelInterface;
+use app\src\interfaces\models\ModelInterface;
 
 interface ModelFactoryInterface
 {

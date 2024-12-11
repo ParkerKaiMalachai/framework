@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\src\interfaces;
+namespace app\src\interfaces\models;
 
 interface ModelInterface
 {
