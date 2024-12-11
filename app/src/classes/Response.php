@@ -24,7 +24,7 @@ class Response implements ResponseInterface
         require $file;
     }
 
-    public function sendJSON(array $data)
+    public function sendJSON(array $data): void
     {
         if (!isset($data)) {
             throw new InvalidArgumentException('Wrong type of passed param');
