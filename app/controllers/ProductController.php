@@ -15,7 +15,11 @@ final class ProductController extends AbstractController
 
     public function show(): void
     {
-        $id = $this->request->getModel($this->logicData);
+        $id = $this->request->requestToModel(
+            $this->logicData['params']['id'],
+            $this->logicData['pathName'],
+            'getItemByID'
+        );
 
         $this->response->sendJSON($id);
     }

@@ -6,5 +6,5 @@ namespace app\src\interfaces;
 
 interface RequestInterface
 {
-    public function getModel(array $logicData): mixed;
+    public function requestToModel(string $param, string $name, string $method): mixed;
 }

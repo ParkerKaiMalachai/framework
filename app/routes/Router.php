@@ -9,7 +9,6 @@ use app\src\interfaces\RequestInterface;
 use app\src\interfaces\ResponseInterface;
 use app\src\interfaces\RouterInterface;
 
-
 final class Router implements RouterInterface
 {
     public function __construct(
@@ -41,7 +40,11 @@ final class Router implements RouterInterface
 
         $action = $controllerLogicParams['action'];
 
-        $nameOfControllerFactory = FACTORY_NAMESPACE . $controllerLogicParams['controllerName'] . 'Factory';
+        $nameOfControllerFactory = FACTORY_NAMESPACE . 'ControllerFactory';
+
+        if (!class_exists($nameOfControllerFactory)) {
+            return;
+        }
 
         $controller = $nameOfControllerFactory::createController($controllerLogicParams, $this->response, $this->request);
 

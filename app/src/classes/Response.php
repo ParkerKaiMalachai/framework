@@ -26,7 +26,7 @@ class Response implements ResponseInterface
 
     public function sendJSON(array $data): void
     {
-        if (!isset($data)) {
+        if (empty($data)) {
             throw new InvalidArgumentException('Wrong type of passed param');
         }
 

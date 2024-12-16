@@ -4,18 +4,26 @@ declare(strict_types=1);
 
 namespace app\src\classes;
 
+use app\src\interfaces\cache\CacheInterface;
 use app\src\interfaces\RequestInterface;
+use PDO;
 
 class Request implements RequestInterface
 {
-    public function getModel(array $logicData): mixed
+    public function __construct(private PDO $connection, private CacheInterface $redisManager) {}
+
+    public function requestToModel(string $param, string $name, string $method): mixed
     {
-        $factoryName = FACTORY_NAMESPACE . $logicData['pathName'] . "ModelFactory";
+        $factoryName = FACTORY_NAMESPACE . "ModelFactory";
 
-        $model = $factoryName::createModel();
+        if (!class_exists($factoryName)) {
+            return null;
+        }
 
-        $id = $model->getItemByID($logicData['params']['id']);
+        $model = $factoryName::createModel($this->connection, $this->redisManager, $name);
 
-        return $id;
+        $result = $model->$method($param);
+
+        return $result;
     }
 }
