@@ -46,4 +46,8 @@ final class ConnectionDB implements ConnectionDBInterface
 
         return self::$connection;
     }
+
+    private function __clone(): void {}
+
+    private function __wakeup(): void {}
 }

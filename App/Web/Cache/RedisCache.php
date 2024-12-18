@@ -25,7 +25,7 @@ class RedisCache implements CacheInterface
         return self::$instance;
     }
 
-    public function setHelper($redis): void
+    public function setHelper(Redis $redis): void
     {
         $this->redis = $redis;
     }
@@ -164,4 +164,8 @@ class RedisCache implements CacheInterface
 
         return true;
     }
+
+    private function __clone(): void {}
+
+    private function __wakeup(): void {}
 }
