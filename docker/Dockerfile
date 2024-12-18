@@ -28,7 +28,7 @@ WORKDIR /var/www/html/
 
 COPY ./vendor ./vendor
 
-COPY ./app .
+COPY ./App .
 
 VOLUME [ "/var/www/html/" ]
 
