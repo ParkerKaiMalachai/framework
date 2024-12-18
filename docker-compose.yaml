@@ -13,7 +13,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./app/:/var/www/html/
+      - ./App/:/var/www/html/
       - ./configs/nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
       - framework-network
